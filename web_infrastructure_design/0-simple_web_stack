@@ -1,0 +1,62 @@
+Simple_web_stack Diagram:
+https://imgur.com/a/xzKuslN
+
+Diagram explanation:
+User - This is a person using a computer or phone who opens a web browser and types: www.foobar.com
+
+Domain Name System (DNS) - When the user types www.foobar.com, their computer contacts a DNS server to translate the domain name into an IP address.
+
+Server at IP: 8.8.8.8 - In this case this is the  physical or virtual server that hosts everything: the web server, application server, application code, and the database.
+
+ Web Server: Nginx - Nginx listens for HTTP/HTTPS requests from the user’s browser.
+
+ Application Server - This runs the codebase (for example, a Python, PHP, or Node.js app).
+
+ Database: MySQL - this is where persistent data lives:
+	•	User accounts
+	•	Blog posts
+	•	Transactions
+
+Specific components of the web infrastructure:
+
+Server - A server is a computer (physical or virtual) that provides services or resources to other computers (clients). In this case, it hosts the website, code, and database.
+
+What is the the Domain Name? - The domain name (foobar.com) is a human-readable address that maps to the IP address of the server. It simplifies access (users don’t have to remember the IP).
+
+What Type of DNS Record is www? - www is a subdomain of foobar.com. It uses an A record in DNS to point to the server IP address (8.8.8.8).
+
+What is the Role of the Web Server (Nginx)?
+
+The web server:
+	•	Listens for HTTP/HTTPS requests
+	•	Serves static files (HTML, CSS, images)
+	•	Forwards dynamic requests (e.g., login, forms) to the application server
+
+What is the Role of the Application Server?
+
+The application server:
+	•	Executes the backend code (PHP, Python, Node.js, etc.)
+	•	Handles business logic
+
+What is the Role of the Database?
+
+The database:
+	•	Stores structured data (user profiles, comments, orders)
+	•	Responds to read/write requests from the app server
+
+How Does the Server Communicate With the User’s Computer?
+	•	Using the HTTP/HTTPS protocols over the TCP/IP network stack.
+
+ Issues With This Infrastructure
+
+SPOF (Single Point of Failure) - If the single server goes down (crashes, power loss, network failure), the whole website becomes unavailable.
+
+ Downtime for Maintenance - To update the application (e.g., new code), you may need to restart Nginx or the application server — which causes downtime for users.
+
+No Scalability - If traffic increases (e.g., 10,000 users), a single server may not be able to handle it. No load balancing, no redundancy, and no way to horizontally scale.
+
+
+
+
+
+

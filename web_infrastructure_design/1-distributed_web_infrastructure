@@ -1,0 +1,73 @@
+1- distributed_web_infrastructure diagram:
+https://imgur.com/a/Uwt9mZ5
+Purpose of each element added:
+HAProxy (Load Balancer) - Distributes incoming traffic between servers to avoid overloading a single machine. Helps improve availability and scalability.
+
+Two Servers - Redundancy and load handling. If one fails or is overloaded, the second can serve traffic. Improves fault tolerance and scalability.
+
+Nginx - Acts as the web server on each machine. Handles HTTP requests, serves static files, and passes dynamic requests to the app server.
+
+Application Server - Runs the application logic (e.g., Python/Flask, Node.js, PHP). Handles user requests and interacts with the database.
+
+Application Files - The source code and assets of your web app. Each server has its own copy.
+
+MySQL Database - Stores and manages persistent data like users, posts, transactions.
+
+What Load Balancing Algorithm Is Used? - Round Robin and Least Connections which sends traffic to the server with the fewest current connections:
+Round Robin sends each new connection to the next server in a rotating list.
+	•Example: User1 → Server1, User2 → Server2, User3 → Server1, etc.
+
+Both servers are active, handle requests simultaneously, and are load-balanced by HAProxy.
+Active-Active - All servers are active and serve traffic, Better resource usage and performance, Requires database synchronization across nodes, HAProxy sends traffic to all healthy nodes.
+
+Active- passive - Only one server is active, others are on standby, Lower risk of split-brain or conflicting writes, Easier to manage for failover, HAProxy switches to backup only when active fails.
+
+Primary-Replica (master-slave)
+	Primary (Master):
+	•	Handles write operations (INSERT, UPDATE, DELETE)
+
+    Replica (Slave):
+	•	Copies the Primary data through replication
+
+Primary Node - Accepts read and write, All changes are committed here, App writes go here.
+
+Replica Node - Accepts read-only queries, Replica syncs via asynchronous process, App reads can go here (if read-heavy)
+
+Issues in this infrastructure:
+HAProxy is now the SPOF. If HAProxy goes down, all traffic is blocked, even if backend servers are healthy.
+
+ No firewall: All ports may be exposed to the public.
+
+ No HTTPS: Data is sent unencrypted.
+
+ No Monitoring - Not monitoring:
+	•	Server uptime
+	•	Load balancer health
+	•	Disk/database usage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

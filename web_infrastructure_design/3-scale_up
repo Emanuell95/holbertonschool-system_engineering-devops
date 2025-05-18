@@ -1,0 +1,17 @@
+Scale_up diagram:
+https://imgur.com/a/tM5qpPG
+
+Why were these new components added?:
+Additional Server - To scale the infrastructure by separating concerns and distributing load more efficiently.
+
+Second Load Balancer (HAProxy) Clustered with the First One
+To eliminate the Single Point of Failure (SPOF) in the load balancing layer.
+If one HAProxy instance fails, the other can take over, ensuring high availability.
+
+Split Components: Web Server, Application Server, Database on Their Own Servers - Why added:
+To follow the principle of separation of concerns and improve: performance, scalability, security and mantainability.
+
+
+
+
+

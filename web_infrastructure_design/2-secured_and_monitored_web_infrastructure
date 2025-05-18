@@ -1,0 +1,58 @@
+Secured and monitored web infrastructure diagram:
+https://imgur.com/a/lDmceNB
+
+Why were this components added?:
+3 Firewalls - Each server has a firewall to restrict access to only allowed ports (e.g., 443 for HTTPS, 3306 internal only).
+
+SSL Certificate - Enables encrypted communication over HTTPS to protect data in transit.
+
+Monitoring Clients - Installed on each server to collect system and application metrics (CPU, RAM, QPS, logs).
+
+The firewalls purpose - A firewall is a security layer that controls incoming and outgoing network traffic based on defined rules.
+
+Why Is Traffic Served Over HTTPS?
+The because of this is that HTTPS encrypts data between the user’s browser and your web infrastructure using SSL/TLS certificates. And protects sensitive data (e.g., logins, credit card info).
+
+What Is Monitoring Used For?
+Monitoring provides real-time visibility into the health, performance, and usage of your infrastructure.
+
+How the Monitoring Tool Collects Data?
+Monitoring clients, Collect metrics (CPU, disk, network, QPS, logs), send data periodically to a central monitoring dashboard and can monitor system logs, service status, error rates, etc.
+
+How to Monitor QPS (Queries Per Second) on Web Server?
+QPS = how many HTTP requests your web server handles per second.
+To monitor QPS:
+Enable access logs in Nginx or Apache
+Use tools like: Datadog integration for Nginx
+Create a metric filter that counts requests per second based on logs or metrics.
+
+Issues With This Infrastructure:
+
+SSL Termination at Load Balancer
+
+What it means:
+SSL decryption happens at the load balancer, and traffic from the load balancer to backend servers is unencrypted.
+
+Why it’s an issue:
+	•	Internal traffic is vulnerable to snooping (if attacker gets into your network).
+	•	Not fully secure “end-to-end”.
+
+ One MySQL Server for Writes
+ Problem: A single writable MySQL server is a Single Point of Failure (SPOF).
+
+If it:
+	•	Crashes - No writes can be performed.
+	•	Is overloaded - Writes slow down the app.
+
+All Servers Have Same Components (Web + App + DB)
+Why it’s a problem:
+	•	Resource contention: Database and application server compete for CPU, RAM, disk I/O.
+	•	Poor scaling: Can’t independently scale one component (e.g., scale app but not DB).
+	•	Complex upgrades: Updating one service may affect others on the same host.
+	•	Security: If one component is compromised (e.g., app server), attacker gains access to database.
+    
+
+
+
+
+
